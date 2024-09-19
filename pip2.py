@@ -18,7 +18,7 @@
 # 4) створити декоратор котрий буде підраховувати скільки разів була запущена функція
 # продекорована цим декоратором, та буде виводити це значення після виконання функцій
 
-
+#==============================================================================
 dec_num = 0
 def decor(func):
     def inner(*args,**kwargs):
@@ -29,34 +29,40 @@ def decor(func):
         print('***************************************')
         return result
     return inner
-
-@decor
+#==============================================================================
 def task_list():
-    task_l = []
-
-    def add_task(add_t):
+    task_l:list[str] = []
+    def add_task(add_t:type[str]):
         task_l.append(add_t)
-
     @decor
     def get_task():
         print(task_l)
-
     return add_task, get_task
-
 add_task, get_task = task_list()
-
+#==============================================================================
 @decor
 def menu_2():
-    print('2')
-
+    print('just be happy!')
+#==============================================================================
 @decor
-def menu_3():
-    print('3')
-
+def return_summ(num):
+    # num = input('num = ')
+    i=0
+    ret_summ = []
+    while i < len(num):
+        l = len(num)
+        long = l-i-1
+        if num[i] != "0":
+            ret_summ.append(num[i]+'0'*long)
+        else:
+            pass
+        i+=1
+    print(' + '.join(ret_summ))
+#==============================================================================
 @decor
 def menu_4():
     print(f'Decorator N: {dec_num}')
-
+#==============================================================================
 @decor
 def menu():
     while True:
@@ -84,10 +90,11 @@ def menu():
         elif choice == '2':
             menu_2()
         elif choice == '3':
-            menu_3()
+            num = input('num = ')
+            return_summ(num)
         elif choice == '4':
             menu_4()
         elif choice == '9':
             break
-
+#==============================================================================
 menu()
